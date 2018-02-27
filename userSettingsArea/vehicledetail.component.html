@@ -1,0 +1,25 @@
+<table *ngFor="let m of formateVehicleData let idx  = index" class="table table-responsive margin0">
+  <tr>
+    <td colspan="21" class="brochureHeaderStyle" style="padding-left: 0">
+      <span style="padding-left: 10px" id="sticky-cat" [innerHtml]="m.translatedCategoryName"></span>
+    </td>
+  </tr>
+  <tr class="tablebottomborder" *ngFor="let r of m.value">
+    <td [ngClass]="getMinWidth" id="sticky-subcat" style="background: #e8e8e8;overflow-wrap: break-word" [innerHtml]="r.ebrochureText"></td>
+    <!-- <td [ngClass]="getMinWidth"   id="sticky-subcat" style="background: #e8e8e8;overflow-wrap: break-word" >
+            <div [ngClass]="getMinWidth" style="overflow-wrap: break-word" [innerHtml]="r.ebrochureText"  ></div>
+          </td>
+          <td [ngClass]="getMinWidth" style="background: #e8e8e8;" > </td> -->
+    <td class="text-center" style="min-width: 250px" *ngFor="let item of r.value; index as i">
+
+      <span *ngFor="let value of item.formattedValues; index as i">
+        <span *ngIf="value.isIcon"> 
+           <span *ngIf="!value.optionCode"><img src="{{value.source}}" style="padding-right: 2px;" /> </span>
+           <span *ngIf="value.optionCode" pTooltip="{{getTooTip(item)}}" tooltipPosition="top" [escape]="false">
+            <a (click)="buildOption(item)" >  <img src="{{value.source}}" style="padding-right: 2px;" />[{{value.optionCode}}] </a></span>
+        </span>
+        <span *ngIf="!value.isIcon"> {{value.label}}</span>
+      </span>
+    </td>
+  </tr>
+</table>
